@@ -28,13 +28,16 @@ struct MainScreenView: View {
         }
         .searchable(
             text: $searchText,
-            prompt: "Look for a business"
-        )
-        .searchSuggestions {
-            ForEach(viewModel.autoCompleteOptions, id: \.self) { result in
-                Text(result).searchCompletion(result)
+            prompt: "Look for a business",
+            suggestions: {
+                if viewModel.suggestionVisible {
+                    ForEach(viewModel.autoCompleteOptions, id: \.self) { result in
+                        Text(result)
+                            .searchCompletion(result)
+                    }
+                }
             }
-        }
+        )
         .onSubmit(of: .search) {
             viewModel.resetSearch(newTerm: searchText)
         }
@@ -65,12 +68,20 @@ struct MainScreenView: View {
             case .idle:
                 EmptySearch(resultIsEmpty: false)
             case .loading:
-                Loading(scaleX: 2, scaleY: 2)
+                loadingView
             case .loadedSuccessfully, .loadingMore:
                 resultView
             case .error:
                 ErrorView()
             }
+        }
+    }
+    
+    var loadingView: some View {
+        VStack {
+            Spacer()
+            Loading(scaleX: 2, scaleY: 2)
+            Spacer()
         }
     }
     

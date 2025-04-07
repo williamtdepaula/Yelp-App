@@ -7,7 +7,7 @@
 import Foundation
 
 struct Business: Codable, Identifiable {
-    let id: String?
+    let id: String
     let imageUrl: String?
     let url: String?
     let name: String?

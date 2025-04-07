@@ -17,6 +17,8 @@ class MainScreenViewModel: ObservableObject {
     
     @Published var webViewIsVisible: Bool = false
     
+    @Published var suggestionVisible: Bool = false
+    
     @Published var autoCompleteOptions: [String] = []
     
     var termSearched: String = ""
@@ -40,6 +42,7 @@ class MainScreenViewModel: ObservableObject {
     
     func resetSearch(newTerm: String) {
         if newTerm != termSearched {
+            autoCompleteOptions = []
             termSearched = newTerm
             offsetSearch = 0
             totalItems = 0
@@ -48,11 +51,17 @@ class MainScreenViewModel: ObservableObject {
     }
  
     func search(loadingMore: Bool = false) {
+        suggestionVisible = false
+        
         Task { [weak self] in
             guard let self, termSearched.count > 0 else { return }
             
             await MainActor.run { [weak self] in
                 self?.screenState = !loadingMore ? .loading : .loadingMore
+                
+                if !loadingMore {
+                    self?.businesses = []
+                }
             }
             
             do {
@@ -82,7 +91,7 @@ class MainScreenViewModel: ObservableObject {
     }
     
     func onSearchChanged(newSearch: String) {
-        
+        suggestionVisible = newSearch != termSearched
         taskToGetAutoComplete?.cancel()
         
         guard !newSearch.isEmpty else {
