@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "DEAD7C31-7FEE-4BA5-9A41-B6607AE14439",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Yelp App.xcodeproj",
+      "identifier" : "3A5CFC052DA2D194008116B5",
+      "name" : "Yelp App"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "Yelp_AppTests",
+        "Yelp_AppTests\/testGetAutoCompleteWithSuccess()",
+        "Yelp_AppTests\/testScreenStateTransitionsDuringSearch()",
+        "Yelp_AppTests\/testSearchWithFailure()",
+        "Yelp_AppTests\/testSearchWithSuccess()"
+      ],
+      "target" : {
+        "containerPath" : "container:Yelp App.xcodeproj",
+        "identifier" : "3A5CFC152DA2D195008116B5",
+        "name" : "Yelp AppTests"
+      }
+    }
+  ],
+  "version" : 1
+}
