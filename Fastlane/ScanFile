@@ -4,7 +4,7 @@
 workspace "Yelp App.xcodeproj/project.xcworkspace"
 scheme "Yelp App"
 sdk "iphonesimulator"
-device "iPhone 16"
+device "iPhone 15 Pro"
 code_coverage true
 xcargs '-parallelizeTargets'
 prelaunch_simulator true
